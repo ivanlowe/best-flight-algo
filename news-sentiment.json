@@ -1,0 +1,32 @@
+{
+  "https://www.bbc.co.uk/news/world-48118649": {
+    "title": 1,
+    "news": -4,
+    "total": -3
+  },
+  "https://www.bbc.co.uk/news/world-asia-48093431": {
+    "title": 0,
+    "news": 0,
+    "total": 0
+  },
+  "https://abcnews.go.com/International/post-election-riots-jakarta-leave-dead-hundreds-injured/story?id=63195222": {
+    "title": 0,
+    "news": -3,
+    "total": -3
+  },
+  "http://time.com/5592450/joko-widodo-official-count-reelected-indonesia/": {
+    "title": 1,
+    "news": -6,
+    "total": -5
+  },
+  "https://www.bloomberg.com/news/videos/2019-05-23/violence-continues-in-jakarta-video": {
+    "title": 0,
+    "news": 1,
+    "total": 1
+  },
+  "https://www.aljazeera.com/news/2019/04/indonesia-plans-move-capital-jakarta-190429154834438.html": {
+    "title": 0,
+    "news": -4,
+    "total": -4
+  }
+}
