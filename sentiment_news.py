@@ -123,7 +123,9 @@ class NewsSentiment:
         sentiment_plotter.plotResults(self.__positiveCount, self.__negativeCount, self.__stopwordCount)
 
 
+"""
 ns = NewsSentiment()
 p = ns.fetch_news_sentiment("Jakarta")
 print(p)
 ns.showWordStatistics()
+"""

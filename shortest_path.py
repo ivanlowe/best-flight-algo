@@ -1,4 +1,5 @@
 import random
+import operator
 
 class City:
 	"""City objects are used as vertices in the MapGraph class."""
@@ -100,6 +101,7 @@ class MapGraph:
 		shortest_path = []
 		count = 0
 		x = 0
+
 		for each_path in all_paths:
 			path_distance = 0
 			count += 1
@@ -109,9 +111,28 @@ class MapGraph:
 				shortets_value = path_distance
 				shortest_path = each_path
 				x = count
+
 		if shortets_value == 10**9:
 			shortets_value = 0
 		return [x, shortest_path, shortets_value]
+
+	def sorted_paths_wrt_distances (self, city1, city2):
+		paths = self.all_possible_paths(city1, city2)
+		path_distance = 0
+		path_list = []
+		distance_list = []
+		
+		for each_path in paths:
+			path_distance = 0
+			for i in range(0,len(each_path)-1):
+				path_distance += self.edges[self.cities_indices[each_path[i]]][self.cities_indices[each_path[i+1]]]
+			path_list.append(each_path)
+			distance_list.append(path_distance)
+
+		paths_with_distances = list(zip(distance_list, path_list))
+		sorted_list = sorted(paths_with_distances, key=operator.itemgetter(0))
+
+		return sorted_list
 
 
 	def print_graph(self):
@@ -134,6 +155,8 @@ This is a randomized grapgh between 10 different states
 and then finding shortest path between india and paskitan
 """
 
+
+"""
 g = MapGraph()
 list1 = ["Japan","India","Malaysia","UAE","Turkey","China","SKorea","Taiwan","Singapore","Pakistan"]
 for city1 in list1:
@@ -145,20 +168,7 @@ paths = g.all_possible_paths("India","Pakistan")
 for path in paths:
 	print(path)
 shortest = g.shortest_path("India","Pakistan")
+paths = g.sorted_paths_wrt_distances("india","pakistan")
 print("\n")
-print(shortest)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(paths)
+"""
