@@ -2,10 +2,13 @@ from shortest_path import MapGraph
 import method1
 import method2
 import random
+from sentiment_news import NewsSentiment
 
 g = MapGraph()
 
 list1 = ["Tokyo","New Delhi","Kuala Lumpur","Dubai","Ankara","Beijing","Seoul","Taipei","Singapore","Islamabad"]
+
+NewsSentiment().prefetch_news_city(list1)
 
 for city1 in list1:
 	for city2 in list1:

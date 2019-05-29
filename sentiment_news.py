@@ -11,6 +11,7 @@ class NewsSentiment:
 
     def __init__(self):
         self.__cache = Cache("news-sentiment.json")
+        self.__cityCache = Cache("city-cache.json")
 
         with open("positive.txt") as pFile:
             self.__positiveList = pFile.read().lower().split()
@@ -75,16 +76,23 @@ class NewsSentiment:
 
         return polarity, p, n, s
 
+    def prefetch_news_city(self, cities):
+        for city in cities:
+            self.fetch_news_sentiment(city)
+
     def fetch_news_sentiment(self, country):
         api_id = ','.join(self.__news_id)
         print("Getting news...")
         sentiments = []
 
-        url = "https://newsapi.org/v2/everything?q=" + country + "&sources=" + api_id + "&apiKey=" + self.__key
-        country_news = requests.get(url).json()
+        if not self.__cityCache.contains(country) :
+            url = "https://newsapi.org/v2/everything?q=" + country + "&sources=" + api_id + "&apiKey=" + self.__key
+            country_news = requests.get(url).json()
+            self.__cityCache.set(country, {"articles":country_news["articles"], "totalResults":country_news["totalResults"]});
 
-        articles = country_news["articles"]
-        res_count = country_news["totalResults"]
+        cache_country = self.__cityCache.get(country)
+        articles = cache_country["articles"]
+        res_count = cache_country["totalResults"]
 
         _len = 0;
         if res_count > 6:
