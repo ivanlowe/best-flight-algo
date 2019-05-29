@@ -70,7 +70,7 @@ def getDistanceMatrix():
 
 
 """ -----------------------------------------------------------------
-Converts the distance matrix into a n x n array.
+Converts the 1-D distance matrix into a 2-D stacked matrix.
 ----------------------------------------------------------------- """
 def stackMatrix(mat):
 	size = len(cityCoordinates)
@@ -85,6 +85,6 @@ def stackMatrix(mat):
 		counter += j
 		stackedMatrix[i] = tempMat
 		tempMat = []   # Empty temporary matrix
-		counter += 1   # To ensure the next (10N+1)th element is not left out
+		counter += 1   # To ensure the next ((multiple of 10)+1)th element is not left out when j resets to zero
 
 	return stackedMatrix
