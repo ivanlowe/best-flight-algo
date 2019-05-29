@@ -80,7 +80,7 @@ class MapGraph:
 				else:
 					paths.append(newpath)
 		return paths
-
+		
 
 	def all_possible_paths (self, city_x, city_y):
 		"""
@@ -99,22 +99,18 @@ class MapGraph:
 		all_paths = self.all_possible_paths(city_x, city_y)
 		shortets_value = 10**9
 		shortest_path = []
-		count = 0
-		x = 0
 
 		for each_path in all_paths:
 			path_distance = 0
-			count += 1
 			for i in range(0,len(each_path)-1):
 				path_distance += self.edges[self.cities_indices[each_path[i]]][self.cities_indices[each_path[i+1]]]
 			if path_distance < shortets_value:
 				shortets_value = path_distance
 				shortest_path = each_path
-				x = count
 
 		if shortets_value == 10**9:
 			shortets_value = 0
-		return [x, shortest_path, shortets_value]
+		return [shortest_path, shortets_value]
 
 	def sorted_paths_wrt_distances (self, city1, city2):
 		paths = self.all_possible_paths(city1, city2)
@@ -156,8 +152,8 @@ and then finding shortest path between india and paskitan
 """
 
 
-"""
-g = MapGraph()
+
+"""g = MapGraph()
 list1 = ["Japan","India","Malaysia","UAE","Turkey","China","SKorea","Taiwan","Singapore","Pakistan"]
 for city1 in list1:
 	for city2 in list1:
@@ -171,4 +167,4 @@ shortest = g.shortest_path("India","Pakistan")
 paths = g.sorted_paths_wrt_distances("india","pakistan")
 print("\n")
 print(paths)
-"""
+print("\n")"""

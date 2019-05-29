@@ -1,4 +1,3 @@
-from shortest_path import MapGraph
 from sentiment_news import NewsSentiment
 
 def get_best_path (graph, city1, city2):
@@ -27,9 +26,9 @@ def get_best_path (graph, city1, city2):
 			else:
 				safe = True
 		if safe is True:
-			best_path = each_path [1]
+			each_path[1].append(city2)
+			best_path = [city1] + each_path[1]
 			best_distance = each_path[0]
 			break
-
 	best = [best_path, best_distance]
 	return best
