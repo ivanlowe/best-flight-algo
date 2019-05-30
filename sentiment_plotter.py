@@ -11,4 +11,4 @@ def plotResults(p, n, s):
     plt.ylabel("Count")
     plt.title("Distribution of positive, negative and stop words")
 
-    plt.show()
+    plt.savefig("static\\word_dist.png")

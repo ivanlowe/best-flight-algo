@@ -47,4 +47,6 @@ def get_best_path (graph, city1, city2):
 	best_distance = sorted_paths[len(sorted_paths)-1][0]
 	best = [best_path, best_distance]
 
+	ns.showWordStatistics()
+
 	return best

@@ -81,8 +81,9 @@ class NewsSentiment:
             self.fetch_news_sentiment(city)
 
     def fetch_news_sentiment(self, country):
+        country = country.lower()
         api_id = ','.join(self.__news_id)
-        print("Getting news...")
+        print("Analyzing news for ", country, "...")
         sentiments = []
 
         if not self.__cityCache.contains(country) :
@@ -108,15 +109,19 @@ class NewsSentiment:
             key = url
 
             if not self.__cache.contains(key):
-                news = Article(url)
-                news.download()
-                news.parse()
+                try:
+                    news = Article(url)
+                    news.download()
+                    news.parse()
 
-                title_score, tp, tn, ts = self.calculate_polarity(title)
-                news_score, np, nn, ns = self.calculate_polarity(news.text)
+                    title_score, tp, tn, ts = self.calculate_polarity(title)
+                    news_score, np, nn, ns = self.calculate_polarity(news.text)
 
-                sentiment = {"title":title_score, "news":news_score, "total":(title_score + news_score), "stats":{"p":tp + np, "n": np + nn, "s": ts + ns}}
-                self.__cache.set(key, sentiment)
+                    sentiment = {"title": title_score, "news": news_score, "total": (title_score + news_score),
+                                 "stats": {"p": tp + np, "n": np + nn, "s": ts + ns}}
+                    self.__cache.set(key, sentiment)
+                except:
+                    print("Unable to fetch news for ", country, "! Msg: ", ex)
 
             sentiment = self.__cache.get(key)
             self.__positiveCount += sentiment["stats"]["p"]

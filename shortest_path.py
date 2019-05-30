@@ -74,11 +74,13 @@ class MapGraph:
 		for city in self.adj_list[city_x]:
 			if city not in path:
 				newpaths = self.find_all_paths(city, city_y, path)
+
 			for newpath in newpaths:
-				if ( len(newpath)<4 or len(newpath)>5):
+				if ( len(newpath)< 4 or len(newpath)>5):
 					pass
 				else:
 					paths.append(newpath)
+
 		return paths
 		
 
@@ -92,11 +94,12 @@ class MapGraph:
 		all_possible_paths = [list(t) for t in set(tuple(element) for element in all_possible_paths)]
 		return all_possible_paths
 
- 
+
 	def shortest_path (self, city_x, city_y):
 		"""This method returns a list of (shortest path index, shortest path, distance of shortest path)"""
-
 		all_paths = self.all_possible_paths(city_x, city_y)
+		self.posible_path_count = len(all_paths)
+
 		shortets_value = 10**9
 		shortest_path = []
 

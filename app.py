@@ -6,6 +6,12 @@ from sentiment_news import NewsSentiment
 from do100trial import do100
 from plot_paths import plot_map_with_one_path
 from plot_paths import plot_map_with_many_paths
+import os
+
+cur_dir = os.path.dirname(os.path.realpath(__file__))
+
+print(cur_dir)
+
 
 g = MapGraph()
 
@@ -21,9 +27,9 @@ allpaths = g.sorted_paths_list("kuala lumpur", "tokyo")
 shortest = g.shortest_path("kuala lumpur", "tokyo")
 best = method2.get_best_path(g, "kuala lumpur", "tokyo")
 
-plot_map_with_many_paths(allpaths, "C:\\Users\\aminq\\Desktop\\maps\\mapfff.html")
-plot_map_with_one_path(shortest[0], "C:\\Users\\aminq\\Desktop\\maps\\mapf.html")
-plot_map_with_one_path(best[0], "C:\\Users\\aminq\\Desktop\\maps\\mapff.html")
+plot_map_with_many_paths(allpaths, "mapfff.html")
+plot_map_with_one_path(shortest[0], "mapf.html")
+plot_map_with_one_path(best[0], "mapff.html")
 
 
 

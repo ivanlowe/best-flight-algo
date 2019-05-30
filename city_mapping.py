@@ -1,5 +1,6 @@
 from geopy.geocoders import Nominatim
-from math import radians, cos, sin, atan, sqrt
+from math import radians, cos, sin, atan, sqrt, pi, acos
+import requests
 
 # -----------------------
 # Variables declaration
@@ -15,10 +16,19 @@ cityCoordinates = []
 Converts city names from the given list to latitudes and longitudes.
 ----------------------------------------------------------------- """
 def convertCityToCoordinates(city):
-	geolocator = Nominatim(user_agent="best-flight-algo")
+	"""geolocator = Nominatim(user_agent="flight-route-planner-fsktm")
 	location = geolocator.geocode(city)
 	locationArray = [location.latitude, location.longitude]
-	return locationArray
+	return locationArray"""
+	params = {
+		"q":city,
+		"format":"json"
+	}
+	req = requests.get("https://nominatim.openstreetmap.org/search", params)
+	data = req.json()
+	lat = data[0]["lat"];
+	lon = data[0]["lon"];
+	return [float(lat), float(lon)]
 
 
 """ --------------------------------------------------------------------------------
@@ -52,6 +62,34 @@ def getDistance(lat1, lng1, lat2, lng2):
 	distance = authalic_earth_radius*central_angle
 	return int(distance)   # returns distance to the nearest integer in km
 
+
+def distance_on_unit_sphere(lat1, long1, lat2, long2):
+	# Convert latitude and longitude to
+	# spherical coordinates in radians.
+	degrees_to_radians = pi / 180.0
+
+	# phi = 90 - latitude
+	phi1 = (90.0 - lat1) * degrees_to_radians
+	phi2 = (90.0 - lat2) * degrees_to_radians
+
+	# theta = longitude
+	theta1 = long1 * degrees_to_radians
+	theta2 = long2 * degrees_to_radians
+
+	# Compute spherical distance from spherical coordinates.
+
+	# For two locations in spherical coordinates
+	# (1, theta, phi) and (1, theta, phi)
+	# cosine( arc length ) =
+	#    sin phi sin phi' cos(theta-theta') + cos phi cos phi'
+	# distance = rho * arc length
+
+	_cos = (sin(phi1) * sin(phi2) * cos(theta1 - theta2) + cos(phi1) * cos(phi2))
+	arc = acos(_cos)
+
+	# Remember to multiply arc by the radius of the earth
+	# in your favorite set of units to get length.
+	return arc * 6371
 
 """ -----------------------------------------------------------------
 Converts city names from the given list to latitudes and longitudes.
