@@ -112,6 +112,15 @@ class MapGraph:
 			shortets_value = 0
 		return [shortest_path, shortets_value]
 
+
+	def sorted_paths_list (self, city1, city2):
+		sorted1 = self.sorted_paths_wrt_distances(city1, city2)
+		sorted2 = []
+		for each_path in sorted1:
+			sorted2.append(each_path[1])
+		return sorted2
+
+
 	def sorted_paths_wrt_distances (self, city1, city2):
 		paths = self.all_possible_paths(city1, city2)
 		path_distance = 0
